@@ -1,12 +1,13 @@
-=== Multicons [ Multiple Favicons ] ===
+=== Multicons ===
 Contributors: Doc4
 Tags: favicon, icon, apple favicon, apple icon, apple touch icon
 Requires at least: 2.7
-Tested up to: 6.4.3
-Stable tag: 5.4
+Tested up to: 6.9
+Stable tag: 6.0
 License: GPL-2.0+
 License URL: http://www.gnu.org/licenses/gpl-2.0.txt
 
+Multicons is a multi-favicon code generator which automatically inserts the necessary meta tags for favicons.
 
 == Description ==
 Now includes favicons for Android devices. Completely re-written in version 4.2 Multicons is a multi-favicon code generator which automatically inserts the necessary meta tags for both favicons (site-wide and/or dashboard) and Apple Touch / iPhone icons. Please note that it will be necessary to update your icon link locations.
@@ -83,6 +84,12 @@ To install the plugin just follow these simple steps:
 
 
 == Changelog ==
+
+
+= 6.0 =
+* Updated code to ensure functionality with WordPress 6.9
+* Updated Required Headers for readme.txt
+* Updated Required Headers for multicons.php
 
 = 5.4 =
 * Updated code to ensure functionality with WordPress 6.4.3+

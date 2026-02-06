@@ -3,12 +3,13 @@
 Plugin Name: Multicons
 Plugin URI: https://doc4design.com/multicons/
 Description: Auto generates code for both a favicon and an apple favicon into the header of your website
-Version: 5.4
+Version: 6.0
 Requires at least: 2.7
 Author: Doc4
 Author URI: https://doc4design.com/
 License: GPL v2.0 or later
 License URL: https://www.gnu.org/licenses/gpl-2.0.html
+Text Domain: multicons
 */
 
 /******************************************************************************
@@ -33,206 +34,162 @@ The license is also available at https://www.gnu.org/licenses/gpl-2.0.html
 *********************************************************************************/
 
 
-
 // install the options pages
 function multicons_menu_page() {
-    add_options_page( __( 'Multicons', 'multicons-mulitple-favicons' ), __( 'Multicons', 'multicons-mulitple-favicons' ), 'manage_options', 'mmf', 'mmf_options_page' );
+    add_options_page( esc_html__( 'Multicons', 'multicons' ), esc_html__( 'Multicons', 'multicons' ), 'manage_options', 'mmf', 'mmf_options_page' );
 }
 add_action( 'admin_menu', 'multicons_menu_page' );
 
-
 // admin
 function mmf_admin_init() {
-    add_settings_section( 'mmf-section', __( 'Website Favicon', 'multicons-mulitple-favicons' ), 'mmf_section_callback', 'mmf' );
-    add_settings_field( 'mmf-field', __( 'Favicon URL', 'multicons-mulitple-favicons' ), 'mmf_field_callback', 'mmf', 'mmf-section' );
+    add_settings_section( 'mmf-section', esc_html__( 'Website Favicon', 'multicons' ), 'mmf_section_callback', 'mmf' );
+    add_settings_field( 'mmf-field', esc_html__( 'Favicon URL', 'multicons' ), 'mmf_field_callback', 'mmf', 'mmf-section' );
     register_setting( 'mmf-options', 'mmf-setting', 'sanitize_text_field' );
 
-    add_settings_section( 'mmf-section-admin', __( 'Dashboard Favicon', 'multicons-mulitple-favicons' ), 'mmf_section_callback_admin', 'mmf' );
-    add_settings_field( 'mmf-field-admin', __( 'Favicon URL', 'multicons-mulitple-favicons' ), 'mmf_field_callback_admin', 'mmf', 'mmf-section-admin' );
+    add_settings_section( 'mmf-section-admin', esc_html__( 'Dashboard Favicon', 'multicons' ), 'mmf_section_callback_admin', 'mmf' );
+    add_settings_field( 'mmf-field-admin', esc_html__( 'Favicon URL', 'multicons' ), 'mmf_field_callback_admin', 'mmf', 'mmf-section-admin' );
     register_setting( 'mmf-options', 'mmf-setting-admin', 'sanitize_text_field' );
 
-    add_settings_section( 'mmf-section-ios', __( 'Apple Touch Original Icon', 'multicons-mulitple-favicons' ), 'mmf_section_callback_ios', 'mmf' );
-    add_settings_field( 'mmf-field-ios', __( 'Favicon URL', 'multicons-mulitple-favicons' ), 'mmf_field_callback_ios', 'mmf', 'mmf-section-ios' );
+    add_settings_section( 'mmf-section-ios', esc_html__( 'Apple Touch Original Icon', 'multicons' ), 'mmf_section_callback_ios', 'mmf' );
+    add_settings_field( 'mmf-field-ios', esc_html__( 'Favicon URL', 'multicons' ), 'mmf_field_callback_ios', 'mmf', 'mmf-section-ios' );
     register_setting( 'mmf-options', 'mmf-setting-ios', 'sanitize_text_field' );
 
-    add_settings_section( 'mmf-section-iosflat', __( 'Apple Touch Precomposed Icon', 'multicons-mulitple-favicons' ), 'mmf_section_callback_iosflat', 'mmf' );
-    add_settings_field( 'mmf-field-iosflat', __( 'Favicon URL', 'multicons-mulitple-favicons' ), 'mmf_field_callback_iosflat', 'mmf', 'mmf-section-iosflat' );
+    add_settings_section( 'mmf-section-iosflat', esc_html__( 'Apple Touch Precomposed Icon', 'multicons' ), 'mmf_section_callback_iosflat', 'mmf' );
+    add_settings_field( 'mmf-field-iosflat', esc_html__( 'Favicon URL', 'multicons' ), 'mmf_field_callback_iosflat', 'mmf', 'mmf-section-iosflat' );
     register_setting( 'mmf-options', 'mmf-setting-iosflat', 'sanitize_text_field' );
 
-    add_settings_section( 'mmf-section-androidhirez', __( 'Android High Resolution Icon', 'multicons-mulitple-favicons' ), 'mmf_section_callback_androidhirez', 'mmf' );
-    add_settings_field( 'mmf-field-androidhirez', __( 'Favicon URL', 'multicons-mulitple-favicons' ), 'mmf_field_callback_androidhirez', 'mmf', 'mmf-section-androidhirez' );
+    add_settings_section( 'mmf-section-androidhirez', esc_html__( 'Android High Resolution Icon', 'multicons' ), 'mmf_section_callback_androidhirez', 'mmf' );
+    add_settings_field( 'mmf-field-androidhirez', esc_html__( 'Favicon URL', 'multicons' ), 'mmf_field_callback_androidhirez', 'mmf', 'mmf-section-androidhirez' );
     register_setting( 'mmf-options', 'mmf-setting-androidhirez', 'sanitize_text_field' );
 
-    add_settings_section( 'mmf-section-androidreg', __( 'Android Regular Icon', 'multicons-mulitple-favicons' ), 'mmf_section_callback_androidreg', 'mmf' );
-    add_settings_field( 'mmf-field-androidreg', __( 'Favicon URL', 'multicons-mulitple-favicons' ), 'mmf_field_callback_androidreg', 'mmf', 'mmf-section-androidreg' );
+    add_settings_section( 'mmf-section-androidreg', esc_html__( 'Android Regular Icon', 'multicons' ), 'mmf_section_callback_androidreg', 'mmf' );
+    add_settings_field( 'mmf-field-androidreg', esc_html__( 'Favicon URL', 'multicons' ), 'mmf_field_callback_androidreg', 'mmf', 'mmf-section-androidreg' );
     register_setting( 'mmf-options', 'mmf-setting-androidreg', 'sanitize_text_field' );
 }
 add_action( 'admin_init', 'mmf_admin_init' );
 
-
+// section callbacks
 function mmf_section_callback() {
-    echo __( '• Upload your favicon file in .ico format to the media library and paste the link below.<br/>• Dimensions: 16 x 16 pixels or Multi-Size<br/>• Sample File Included', 'multicons-mulitple-favicons' );
+    echo wp_kses_post( '• Upload your favicon file in .ico format to the media library and paste the link below.<br/>• Dimensions: 16 x 16 pixels or Multi-Size<br/>• Sample File Included' );
 }
 
 function mmf_section_callback_admin() {
-    echo __( '• Upload your favicon file in .ico format to the media library and paste the link below.<br/>• Dimensions: 16 x 16 pixels or Multi-Size<br/>• Sample File Included', 'multicons-mulitple-favicons' );
+    echo wp_kses_post( '• Upload your favicon file in .ico format to the media library and paste the link below.<br/>• Dimensions: 16 x 16 pixels or Multi-Size<br/>• Sample File Included' );
 }
 
 function mmf_section_callback_ios() {
-    echo __( '• Upload your icon in .png format to the media library and paste the link below.<br/>• <strong>Only use one Apple Touch Icon link (Do not add a url to both Original and Precomposed)</strong><br/>• Name your Apple Touch Original Icon [apple-touch-icon.png]<br/>• Dimensions: 180 x 180 pixels<br/>• Sample File Included', 'multicons-mulitple-favicons' );
+    echo wp_kses_post( '• Upload your icon in .png format to the media library and paste the link below.<br/><strong>Only use one Apple Touch Icon link (Do not add a url to both Original and Precomposed)</strong><br/>• Name your Apple Touch Original Icon [apple-touch-icon.png]<br/>• Dimensions: 180 x 180 pixels<br/>• Sample File Included' );
 }
 
 function mmf_section_callback_iosflat() {
-    echo __( '• Upload your icon in .png format to the media library and paste the link below.<br/>• <strong>Only use one Apple Touch Icon link (Do not add a url to both Original and Precomposed)</strong><br/>• Name your Apple Touch Precomposed Icon [apple-touch-icon-precomposed.png]<br/>• Dimensions: 180 x 180 pixels<br/>• Sample File Included', 'multicons-mulitple-favicons' );
+    echo wp_kses_post( '• Upload your icon in .png format to the media library and paste the link below.<br/><strong>Only use one Apple Touch Icon link (Do not add a url to both Original and Precomposed)</strong><br/>• Name your Apple Touch Precomposed Icon [apple-touch-icon-precomposed.png]<br/>• Dimensions: 180 x 180 pixels<br/>• Sample File Included' );
 }
 
 function mmf_section_callback_androidhirez() {
-    echo __( '• Upload your icon in .png format to the media library and paste the link below.<br/>• <strong>You may use both options for Android (High Resolution and Regular Icons)</strong><br/>• Name your Android High Resolution Icon [icon-hires.png]<br/>• Dimensions: 192 x 192 pixels<br/>• Sample File Included', 'multicons-mulitple-favicons' );
+    echo wp_kses_post( '• Upload your icon in .png format to the media library and paste the link below.<br/><strong>You may use both options for Android (High Resolution and Regular Icons)</strong><br/>• Name your Android High Resolution Icon [icon-hires.png]<br/>• Dimensions: 192 x 192 pixels<br/>• Sample File Included' );
 }
 
 function mmf_section_callback_androidreg() {
-    echo __( '• Upload your icon in .png format to the media library and paste the link below.<br/>• <strong>You may use both options for Android (High Resolution and Regular Icons)</strong><br/>• Name your Android Regular Icon [icon-regular.png]<br/>• Dimensions: 128 x 128 pixels<br/>• Sample File Included', 'multicons-mulitple-favicons' );
+    echo wp_kses_post( '• Upload your icon in .png format to the media library and paste the link below.<br/><strong>You may use both options for Android (High Resolution and Regular Icons)</strong><br/>• Name your Android Regular Icon [icon-regular.png]<br/>• Dimensions: 128 x 128 pixels<br/>• Sample File Included' );
 }
 
-
-// fields
+// field callbacks (styles preserved)
 function mmf_field_callback() {
-    $mmf_setting = esc_url( get_option( 'mmf-setting' ) );
-    echo "<input type='text' size='60' maxlength='150' name='mmf-setting' value='$mmf_setting' /><br/><br/><br/><br/>";
+    $mmf_setting = get_option( 'mmf-setting' );
+    echo '<input type="text" size="60" maxlength="150" name="mmf-setting" value="' . esc_attr( $mmf_setting ) . '" /><br/><br/><br/><br/>';
 }
 
 function mmf_field_callback_admin() {
-    $mmf_setting_admin = esc_url( get_option( 'mmf-setting-admin' ) );
-    echo "<input type='text' size='60' maxlength='150' name='mmf-setting-admin' value='$mmf_setting_admin' /><br/><br/><br/><br/>";
+    $mmf_setting_admin = get_option( 'mmf-setting-admin' );
+    echo '<input type="text" size="60" maxlength="150" name="mmf-setting-admin" value="' . esc_attr( $mmf_setting_admin ) . '" /><br/><br/><br/><br/>';
 }
 
 function mmf_field_callback_ios() {
-    $mmf_setting_ios = esc_url( get_option( 'mmf-setting-ios' ) );
-    echo "<input type='text' size='60' maxlength='150' name='mmf-setting-ios' value='$mmf_setting_ios' /><br/><br/><br/><br/>";
+    $mmf_setting_ios = get_option( 'mmf-setting-ios' );
+    echo '<input type="text" size="60" maxlength="150" name="mmf-setting-ios" value="' . esc_attr( $mmf_setting_ios ) . '" /><br/><br/><br/><br/>';
 }
 
 function mmf_field_callback_iosflat() {
-    $mmf_setting_iosflat = esc_url( get_option( 'mmf-setting-iosflat' ) );
-    echo "<input type='text' size='60' maxlength='150' name='mmf-setting-iosflat' value='$mmf_setting_iosflat' /><br/><br/><br/><br/>";
+    $mmf_setting_iosflat = get_option( 'mmf-setting-iosflat' );
+    echo '<input type="text" size="60" maxlength="150" name="mmf-setting-iosflat" value="' . esc_attr( $mmf_setting_iosflat ) . '" /><br/><br/><br/><br/>';
 }
 
 function mmf_field_callback_androidhirez() {
-    $mmf_setting_androidhirez = esc_url( get_option( 'mmf-setting-ios' ) );
-    echo "<input type='text' size='60' maxlength='150' name='mmf-setting-androidhirez' value='$mmf_setting_androidhirez' /><br/><br/><br/><br/>";
+    $mmf_setting_androidhirez = get_option( 'mmf-setting-androidhirez' );
+    echo '<input type="text" size="60" maxlength="150" name="mmf-setting-androidhirez" value="' . esc_attr( $mmf_setting_androidhirez ) . '" /><br/><br/><br/><br/>';
 }
 
 function mmf_field_callback_androidreg() {
-    $mmf_setting_androidreg = esc_url( get_option( 'mmf-setting-androidreg' ) );
-    echo "<input type='text' size='60' maxlength='150' name='mmf-setting-androidreg' value='$mmf_setting_androidreg' /><br/><br/><br/><br/>";
+    $mmf_setting_androidreg = get_option( 'mmf-setting-androidreg' );
+    echo '<input type="text" size="60" maxlength="150" name="mmf-setting-androidreg" value="' . esc_attr( $mmf_setting_androidreg ) . '" /><br/><br/><br/><br/>';
 }
 
-
-// display
+// options page
 function mmf_options_page() {
 ?>
 <div class="wrap">
-    <h1><?php _e( 'Multicons [ Multiple Favicons ]', 'multicons-mulitple-favicons' ); ?></h1>
+    <h1><?php esc_html_e( 'Multicons [ Multiple Favicons ]', 'multicons' ); ?></h1>
     <hr>
     <form action="options.php" method="POST">
-    <?php settings_fields( 'mmf-options' ); ?>
-    <?php do_settings_sections( 'mmf' ); ?>
-    <?php submit_button(__('Save Changes', 'multicons-mulitple-favicons')); ?>
+        <?php settings_fields( 'mmf-options' ); ?>
+        <?php do_settings_sections( 'mmf' ); ?>
+        <?php submit_button( esc_html__( 'Save Changes', 'multicons' ) ); ?>
     </form>
     <hr>
-    <p><?php _e( 'Note: When no link is provided, a default regular favicon will be used - this is to ensure the plugin is working properly.', 'multicons-mulitple-favicons' ); ?></p>
-
+    <p><?php esc_html_e( 'Note: When no link is provided, a default regular favicon will be used - this is to ensure the plugin is working properly.', 'multicons' ); ?></p>
 </div>
 <?php
 }
 
-
-// add to the website header
+// frontend favicon
 function mmf_display_favicon() {
-    $mmf_custom_favicon = esc_url( get_option( 'mmf-setting' ) );
+    $mmf_custom_favicon  = get_option( 'mmf-setting' );
     $mmf_default_favicon = plugins_url( 'images/favicon.ico', __FILE__ );
-
-    if (empty( $mmf_custom_favicon )) {
-        echo '<link rel="shortcut icon" href="'.$mmf_default_favicon.'" />'."\n";
-    }
-    else {
-        echo '<link rel="shortcut icon" href="'.$mmf_custom_favicon.'" />'."\n";
-    }
+    $favicon_url = !empty( $mmf_custom_favicon ) ? $mmf_custom_favicon : $mmf_default_favicon;
+    echo '<link rel="shortcut icon" href="' . esc_url( $favicon_url ) . '" />' . "\n";
 }
 add_action( 'wp_head', 'mmf_display_favicon' );
 
-
-// add to the website admin header
+// admin favicon
 function mmf_display_icon_admin() {
-    $mmf_custom_favicon_admin = esc_url( get_option( 'mmf-setting-admin' ) );
-    $mmf_default_favicon_admin = plugins_url( 'images/favicon.ico', __FILE__ );
-
-    if (empty( $mmf_custom_favicon_admin )) {
-        echo '';
-    }
-    else {
-        echo '<link rel="shortcut icon" href="'.$mmf_custom_favicon_admin.'" />'."\n";
+    $mmf_custom_favicon_admin = get_option( 'mmf-setting-admin' );
+    if ( !empty( $mmf_custom_favicon_admin ) ) {
+        echo '<link rel="shortcut icon" href="' . esc_url( $mmf_custom_favicon_admin ) . '" />' . "\n";
     }
 }
 add_action( 'admin_head', 'mmf_display_icon_admin' );
 
-
-// add apple original icon to website header
+// apple touch icons
 function mmf_display_icon_ios() {
-    $mmf_custom_icon_ios = esc_url( get_option( 'mmf-setting-ios' ) );
-    $mmf_default_icon_ios = plugins_url( 'images/apple-touch-icon.png', __FILE__ );
-
-    if (empty( $mmf_custom_icon_ios )) {
-        echo '';
-    }
-    else {
-        echo '<link rel="apple-touch-icon" href="'.$mmf_custom_icon_ios.'" />'."\n";
+    $mmf_custom_icon_ios = get_option( 'mmf-setting-ios' );
+    if ( !empty( $mmf_custom_icon_ios ) ) {
+        echo '<link rel="apple-touch-icon" href="' . esc_url( $mmf_custom_icon_ios ) . '" />' . "\n";
     }
 }
 add_action( 'wp_head', 'mmf_display_icon_ios' );
 
-
-// add apple precomposed icon to website header
 function mmf_display_icon_iosflat() {
-    $mmf_custom_icon_iosflat = esc_url( get_option( 'mmf-setting-iosflat' ) );
-    $mmf_default_icon_iosflat = plugins_url( 'images/apple-touch-icon.png', __FILE__ );
-
-    if (empty( $mmf_custom_icon_iosflat )) {
-        echo ''."\n";
-    }
-    else {
-        echo '<link rel="apple-touch-icon" href="'.$mmf_custom_icon_iosflat.'" />'."\n";
+    $mmf_custom_icon_iosflat = get_option( 'mmf-setting-iosflat' );
+    if ( !empty( $mmf_custom_icon_iosflat ) ) {
+        echo '<link rel="apple-touch-icon" href="' . esc_url( $mmf_custom_icon_iosflat ) . '" />' . "\n";
     }
 }
 add_action( 'wp_head', 'mmf_display_icon_iosflat' );
 
-
-// add android high-rez icon to website header
+// android icons
 function mmf_display_icon_androidhirez() {
-    $mmf_custom_icon_androidhirez = esc_url( get_option( 'mmf-setting-androidhirez' ) );
-    $mmf_default_icon_androidhirez = plugins_url( 'images/icon-hires.png', __FILE__ );
-
-    if (empty( $mmf_custom_icon_androidhirez )) {
-        echo ''."\n";
-    }
-    else {
-        echo '<link rel="icon" href="'.$mmf_custom_icon_androidhirez.'" />'."\n";
+    $mmf_custom_icon_androidhirez = get_option( 'mmf-setting-androidhirez' );
+    if ( !empty( $mmf_custom_icon_androidhirez ) ) {
+        echo '<link rel="icon" href="' . esc_url( $mmf_custom_icon_androidhirez ) . '" />' . "\n";
     }
 }
 add_action( 'wp_head', 'mmf_display_icon_androidhirez' );
 
-
-// add android regular icon to website header
 function mmf_display_icon_androidreg() {
-    $mmf_custom_icon_androidreg = esc_url( get_option( 'mmf-setting-androidreg' ) );
-    $mmf_default_icon_androidreg = plugins_url( 'images/icon-regular.png', __FILE__ );
-
-    if (empty( $mmf_custom_icon_androidreg )) {
-        echo ''."\n";
-    }
-    else {
-        echo '<link rel="icon" href="'.$mmf_custom_icon_androidreg.'" />'."\n";
+    $mmf_custom_icon_androidreg = get_option( 'mmf-setting-androidreg' );
+    if ( !empty( $mmf_custom_icon_androidreg ) ) {
+        echo '<link rel="icon" href="' . esc_url( $mmf_custom_icon_androidreg ) . '" />' . "\n";
     }
 }
 add_action( 'wp_head', 'mmf_display_icon_androidreg' );
-
 ?>
